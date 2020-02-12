@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Template from 'components/Template';
-import TodoInput from './components/TodoInput';
-import TodoList from './components/TodoList';
+import Template from './components/Template/Template';
+import TodoInput from './components/TodoInput/TodoInput';
+import TodoList from './components/TodoList/TodoList';
 
 function App() {
 	return (

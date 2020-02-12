@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoItem from './TodoItem';
+import TodoItem from '../TodoItem/TodoItem';
 import cn from 'classnames/bind';
 import styles from './TodoList.scss';
 
