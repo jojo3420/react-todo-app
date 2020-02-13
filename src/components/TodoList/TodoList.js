@@ -39,4 +39,6 @@ TodoList.propTypes = {
 // 	todos: [], // todos 에 defaultProps 를 지정하면 propTypes이 무력화됨.. 기본값이 지정되므로.
 // };
 
-export default TodoList;
+// todos 변경될 경우에만 리렌더링 되도록 최적화 해준다.
+// 만약 todoInput 의 인풋값이 App에 있다고 하면 memo가 없을 경우 필드값 변경만으로 list 가 리 렌더링 된다.
+export default React.memo(TodoList);

@@ -35,4 +35,7 @@ TodoItem.defaultProps = {
 	// something
 };
 
-export default TodoItem;
+// export default TodoItem;
+
+// 성능 최적화 : props 매개변수 의 값이 변경될 경우만 렌더링 된다고 함
+export default React.memo(TodoItem);
