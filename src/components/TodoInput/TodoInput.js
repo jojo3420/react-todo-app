@@ -14,19 +14,6 @@ const cx = cn.bind(styles);
 
 function TodoInput({ text, handleInsert, handleChange }) {
 
-	// const [text, setText] = useState('');
-
-	// const handleChange = useCallback(e => {
-	// 	const { value } = e.target;
-	// 	setText(value);
-	// }, [setText]);
-	//
-	// const handleSubmit = useCallback(e => {
-	// 	e.preventDefault();
-	// 	handleInsert(text);
-	// 	setText('');
-	// }, [text, setText]);
-
 	return (
 		<form
 			className={cx('TodoInput')}

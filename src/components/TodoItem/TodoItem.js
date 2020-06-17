@@ -46,4 +46,4 @@ function TodoItem({ todo, handleRemove, handleChecked }) {
 	);
 }
 
-export default TodoItem;
+export default React.memo(TodoItem);

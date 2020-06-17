@@ -27,4 +27,5 @@ function TodoList({ list, handleRemove, handleChecked }) {
 	);
 }
 
-export default TodoList;
+// export default TodoList;
+export default React.memo(TodoList);

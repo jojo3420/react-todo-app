@@ -6,11 +6,8 @@ import TodoList from 'components/TodoList/TodoList';
 
 function App() {
 	const [text, setText] = useState('');
-	const [todoList, setTodoList] = useState([
-		{id: 1, text: '밥먹기', checked: false},
-		{id: 2, text: '잠자기', checked: true},
-	]);
-	const idRef = useRef(1000);
+	const [todoList, setTodoList] = useState(createSampleData);
+	const idRef = useRef(3000);
 
 	const handleChange = useCallback(e => {
 		const { value } = e.target;
@@ -20,26 +17,28 @@ function App() {
 	const handleInsert = useCallback(e => {
 		e.preventDefault();
 		if (text) {
-			const todo = { id: idRef.current++, text, checked: false };
-			const nextList = todoList.concat(todo);
-			setTodoList(nextList);
+			// 함수형 업데이트로 변경
+			setTodoList(todoList => todoList.concat(
+				{ id: idRef.current++, text, checked: false }
+				));
 			setText('');
 		}
-	}, [text, todoList]);
+	}, [text]);
 
 	const handleRemove = useCallback(id => {
 		if (id) {
-			const newList = todoList.filter(todo => todo.id !== id);
-			setTodoList(newList);
+			// 함수형 업데이트 코드로 변경
+			setTodoList(todoList => todoList.filter(todo => todo.id !== id));
 			return;
 		}
 		throw new Error('삭제할 id가 없습니다.' + id);
-	}, [todoList]);
+	}, []); // todoList 의존성 제거
 
 	const handleChecked = useCallback(id => {
-		const newList = todoList.map(t => t.id === id ? { ...t, checked: !t.checked} : t);
-		setTodoList(newList);
-	}, [todoList]);
+		// 함수형 업데이트 코드로 변경
+		setTodoList(todoList =>
+			todoList.map(todo => todo.id === id ? { ...todo, checked: !todo.checked}: todo))
+	}, []); // todoList 의존성 제거
 
 
 	return (
@@ -58,4 +57,16 @@ function App() {
 	);
 }
 
+
+function createSampleData () {
+	const list = [];
+	for (let i = 1; i < 2501; i++) {
+		list.push({
+			id: i,
+			text: 'sample ' + i,
+			checked: false
+		});
+	}
+	return list;
+};
 export default App;
