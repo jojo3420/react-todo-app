@@ -15,15 +15,17 @@ function App() {
 	const handleChange = useCallback(e => {
 		const { value } = e.target;
 		setText(value);
-	}, [setText]);
+	}, []);
 
 	const handleInsert = useCallback(e => {
 		e.preventDefault();
-		const todo = { id: idRef.current++, text, checked: false };
-		const nextList = todoList.concat(todo);
-		setTodoList(nextList);
-		setText('');
-	}, [text, todoList, setTodoList, setText]);
+		if (text) {
+			const todo = { id: idRef.current++, text, checked: false };
+			const nextList = todoList.concat(todo);
+			setTodoList(nextList);
+			setText('');
+		}
+	}, [text, todoList]);
 
 	const handleRemove = useCallback(id => {
 		if (id) {
@@ -37,7 +39,7 @@ function App() {
 	const handleChecked = useCallback(id => {
 		const newList = todoList.map(t => t.id === id ? { ...t, checked: !t.checked} : t);
 		setTodoList(newList);
-	}, [todoList, setTodoList]);
+	}, [todoList]);
 
 
 	return (
