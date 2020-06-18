@@ -25,13 +25,9 @@ const reducer = (todos, action) => {
 
 
 function App() {
-	const [todos, dispatch] = useReducer(reducer, [
-		{id: 1, text: 'test1', done: false },
-		{id: 2, text: 'test2', done: true },
-		{id: 3, text: 'test3', done: false },
-	]);
+	const [todos, dispatch] = useReducer(reducer, [], createSampleData);
 	const [text, setText] = useState('');
-	const idRef = useRef(4);
+	const idRef = useRef(3000);
 
 	const handleText = useCallback(e => {
 		const { value } = e.target;
@@ -84,4 +80,16 @@ function App() {
 	);
 }
 
+
+function createSampleData() {
+	const array = [];
+	for (let i = 1; i < 2500; i++) {
+		array.push({
+			id: i,
+			text: `text-${i}`,
+			done: false,
+		});
+	}
+	return array;
+}
 export default App;

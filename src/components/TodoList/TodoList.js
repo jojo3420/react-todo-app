@@ -26,4 +26,4 @@ function TodoList({ todos, handleRemove, handleDone }) {
 	);
 }
 
-export default TodoList;
+export default React.memo(TodoList);

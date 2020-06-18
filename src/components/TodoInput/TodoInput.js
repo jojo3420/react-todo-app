@@ -28,4 +28,4 @@ function TodoInput({ text, handleText, handleInsert }) {
 	);
 }
 
-export default TodoInput;
+export default React.memo(TodoInput);
