@@ -1,11 +1,31 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useReducer } from 'react';
 import './App.css';
 import Template from './components/Template/Template';
 import TodoInput from './components/TodoInput/TodoInput';
 import TodoList from './components/TodoList/TodoList';
 
+
+
+const reducer = (todos, action) => {
+	const { type } = action;
+	switch(type) {
+		case 'ADD':
+			return todos.concat(action.todo);
+		case 'REMOVE':
+			return todos.filter(todo => todo.id !== action.id);
+		case 'MODIFY':
+			return todos.map(todo => todo.id === action.id
+				? {...todo, done: !todo.done  }
+				: todo
+			);
+		default:
+			return todos;
+	}
+};
+
+
 function App() {
-	const [todos, setTodos] = useState([
+	const [todos, dispatch] = useReducer(reducer, [
 		{id: 1, text: 'test1', done: false },
 		{id: 2, text: 'test2', done: true },
 		{id: 3, text: 'test3', done: false },
@@ -21,29 +41,29 @@ function App() {
 	const handleInsert = useCallback(e => {
 		e.preventDefault();
 		if (text) {
-			setTodos(todos => todos.concat({
-				id: idRef.current++,
-				text,
-				done: false
-			}));
+			dispatch({
+				type: 'ADD',
+				todo: { id: idRef.current++, text, done: false },
+			});
 			setText('');
 		}
 	}, [text]);
 
 	const handleDone = useCallback(id => {
 		if (id) {
-			setTodos(todos =>
-				todos.map(todo => todo.id === id
-					? {...todo, done: !todo.done }
-					: todo
-				));
+			dispatch({
+				type: 'MODIFY',
+				id,
+			})
 		}
 	}, []);
 
 	const handleRemove = useCallback(id => {
 		if (id) {
-			setTodos(todos =>
-				todos.filter(todo => todo.id !== id));
+			dispatch({
+				type: 'REMOVE',
+				id,
+			});
 		}
 	}, []);
 
