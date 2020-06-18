@@ -1,10 +1,18 @@
+.TodoItem-virtualized {
+  & + & {
+    border-top: 1px solid lightcyan;
+  }
+  &:nth-child(even) {
+    background-color: lightgray;
+  }
+}
 .TodoItem {
   padding: 1rem;
   display: flex;
   align-items: center; // 세로 중앙 정렬
-  &:nth-child(even) {
-     background: lightgray;
-  }
+  //&:nth-child(even) {
+  //   background: lightgray;
+  //}
   .checkbox {
     cursor: pointer;
     flex: 1; // 차지할 수 잇는 영역 모두 차지
@@ -42,7 +50,7 @@
   }
 
   // 엘리먼트 사이 사이에 테두리를 넣어 줌
-  & + & {
-    border-top: 1px solid lightgray;
-  }
+  //& + & {
+  //  border-top: 1px solid lightgray;
+  //}
 }

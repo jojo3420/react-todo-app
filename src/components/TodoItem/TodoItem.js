@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 const cx = cn.bind(styles);
 
-TodoItem.propTypes ={
+TodoItem.propTypes = {
 	todo: PropTypes.shape({
 		id: PropTypes.number,
 		text: PropTypes.string,
@@ -18,25 +18,30 @@ TodoItem.propTypes ={
 	}).isRequired,
 	handleRemove: PropTypes.func.isRequired,
 	handleDone: PropTypes.func.isRequired,
-}
+};
 
 
-function TodoItem({ todo, handleRemove, handleDone }) {
+function TodoItem({ todo, handleRemove, handleDone, style }) {
 	const { id, text, done } = todo;
 
 	return (
-		<div className={cx('TodoItem')}>
-			<div className={cx('checkbox', done && "checked")}
-				onClick={() => handleDone(id)}
-			>
-				{done ? <MdCheckBox /> : <MdCheckBoxOutlineBlank /> }
-				<div className={cx('text')}>{text}</div>
-			</div>
-			<div className={cx('remove')}>
-				<MdRemoveCircleOutline onClick={() => handleRemove(id)}/>
+		<div class="TodoItem-virtualized" style={style}>
+			<div className={cx('TodoItem')}>
+				<div className={cx('checkbox', done && 'checked')}
+						 onClick={() => handleDone(id)}
+				>
+					{done ? <MdCheckBox/> : <MdCheckBoxOutlineBlank/>}
+					<div className={cx('text')}>{text}</div>
+				</div>
+				<div className={cx('remove')}>
+					<MdRemoveCircleOutline onClick={() => handleRemove(id)}/>
+				</div>
 			</div>
 		</div>
 	);
 }
 
-export default React.memo(TodoItem);
+export default React.memo(TodoItem,
+(prevProps, nextProps) =>
+	prevProps.todo === nextProps.todo,
+);
