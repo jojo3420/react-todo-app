@@ -6,19 +6,34 @@ import {
 } from 'react-icons/md';
 import cn from 'classnames/bind';
 import styles from './TodoItem.scss';
+import PropTypes from 'prop-types';
 
-console.log(styles);
 const cx = cn.bind(styles);
 
-function TodoItem({ todo }) {
+TodoItem.propTypes ={
+	todo: PropTypes.shape({
+		id: PropTypes.number,
+		text: PropTypes.string,
+		done: PropTypes.bool,
+	}).isRequired,
+	handleRemove: PropTypes.func.isRequired,
+	handleDone: PropTypes.func.isRequired,
+}
+
+
+function TodoItem({ todo, handleRemove, handleDone }) {
+	const { id, text, done } = todo;
+
 	return (
 		<div className={cx('TodoItem')}>
-			<div className={cx('checkbox')}>
-				<MdCheckBoxOutlineBlank />
-				<div className={cx('text')}>할 일</div>
+			<div className={cx('checkbox', done && "checked")}
+				onClick={() => handleDone(id)}
+			>
+				{done ? <MdCheckBox /> : <MdCheckBoxOutlineBlank /> }
+				<div className={cx('text')}>{text}</div>
 			</div>
 			<div className={cx('remove')}>
-				<MdRemoveCircleOutline />
+				<MdRemoveCircleOutline onClick={() => handleRemove(id)}/>
 			</div>
 		</div>
 	);
